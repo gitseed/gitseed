@@ -1,0 +1,6 @@
+packer_github_api: "https://api.github.com/repos/hashicorp/packer/"
+packer_release_server: "https://releases.hashicorp.com/packer/"
+packer_path: /opt/packer
+# packer has no releases on github, so use the first tag (we'll run alphas, dammit)
+packer_latest: "{{ ( lookup('url', packer_github_api + 'tags', split_lines=False) | from_json | first)['name'] | regex_replace('^v', '') }}"
+packer_installed: "{{ lookup('pipe', 'test ! -x ' + packer_path + ' || ' + packer_path + ' version 2>&1') | regex_replace('^Packer v', '') }}"

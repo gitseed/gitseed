@@ -1,0 +1,7 @@
+- name: Download + unzip packer if new version is available
+  when: packer_latest != packer_installed
+  become: True
+  unarchive:
+    src: "{{ packer_release_server + packer_latest + '/packer_' + packer_latest + '_linux_amd64.zip' }}"
+    dest: "{{ packer_path | dirname }}"
+    remote_src: yes

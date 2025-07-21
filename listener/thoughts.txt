@@ -1,0 +1,6 @@
+I know this isn't the popular way to approach things, but I'm thinking of:
+
+Rust + mysql's C driver
+
+I think this is a more stable approach than using sqlx. Also it's important if I'm going to use rust that I feel confident interfacing with C libraries.
+

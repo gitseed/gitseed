@@ -1,0 +1,9 @@
+First the database
+
+More fun first step, is just take toml files and convert them into a database event
+
+Then the registry bit, you can run the pod without the wrapper and just monitor it manually
+
+Wrapper next, wrapper talks to database, the persistence layer
+
+Then the server, to make it real

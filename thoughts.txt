@@ -1,0 +1,42 @@
+The obvious thing to me seems to be a wrapper program that executes the given program.
+
+This is because we want to take the intput and output and yeet it to a web interface, and the less layers to jump through between the two the better.
+
+The way github actions works, is it's a C# program, nad it works similar where it's a subprocess.
+
+However how github actions works, is for a container, it will execute that container as inside.
+
+Gitlab seems to execute containers along side or something idk.
+
+!!!!!!!
+
+I got it, you cheat by having your own container registry!!!
+
+The container registry in question, it merges together the selected image (like docker.io/bash idk) and the one that has the binary of the runner.
+
+Flow:
+
+1. Event happens
+2. Triggers hook
+3. Daemon talks to container registry to assemble a combined image
+4. Daemon launches pod with needed containers with the needed combined images
+5. The containers in the pod both stream logs, and also track job progress
+
+Actually lets seperate this into components:
+
+* Gitseed wrapper
+* Gitseed listener
+* Gitseed registry
+* Gitseed server
+* Database (vitess tbh)
+
+The gitseed listener will take real life events (crons, github events etc) and send them over to the registry as gitseed workflows
+The gitseed registry will assemble combined images with the gitseed wrapper and the chosen image, then will create pods to run it
+The gitseed server, recieves info from the gitseed wrapper, and reflects it into a web interface
+
+All this message passing happens via the database (https://vitess.io/docs/20.0/reference/features/messaging/)
+Listener converts a TOML into an internal event
+Registry converts an internal event into a pod
+Pod runs the wrapper
+Wrapper sends info the server
+Server stores stateful info in the database

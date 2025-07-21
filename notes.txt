@@ -1,0 +1,7 @@
+Now that I have the database working, next step is to work on the listener
+
+But at this stage it's not doing any listening, it's just reading config files
+
+Listener can use https://github.com/launchbadge/sqlx to make a query
+
+sqlx cli supports migrations

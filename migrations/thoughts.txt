@@ -1,4 +1,0 @@
-sqlx-cli seems a bust. See: https://github.com/launchbadge/sqlx/issues/3942
-
-Flyway is old but it's the market leader, and so very stable.
-

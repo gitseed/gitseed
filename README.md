@@ -1,2 +1,2 @@
-# newseed
+# gitseed
 CI system

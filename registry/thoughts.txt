@@ -1,0 +1,5 @@
+Current proof of concept I want to do today:
+
+rust cli program
+listening on postgres database
+echos to the console whenever someone inserts into the button press

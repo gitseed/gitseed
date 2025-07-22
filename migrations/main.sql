@@ -1,8 +1,8 @@
 --liquibase formatted sql
 
---changeset paul:1
-CREATE TABLE cars (
-  brand VARCHAR(255),
-  model VARCHAR(255),
-  year INT
+--changeset paul:inital
+CREATE TABLE presses (
+  id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  date_pressed timestamp
 );
+

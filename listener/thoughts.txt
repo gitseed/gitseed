@@ -1,6 +1,6 @@
-I know this isn't the popular way to approach things, but I'm thinking of:
+Current proof of concept I want to do today:
 
-Rust + mysql's C driver
-
-I think this is a more stable approach than using sqlx. Also it's important if I'm going to use rust that I feel confident interfacing with C libraries.
-
+rust cli program
+inserts into postgres database
+that's literally it
+but see also the registry thoughts which is a bit harder

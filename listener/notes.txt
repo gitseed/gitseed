@@ -1,0 +1,6 @@
+For compilers to find libpq you may need to set:
+  export LDFLAGS="-L/opt/homebrew/opt/libpq/lib"
+  export CPPFLAGS="-I/opt/homebrew/opt/libpq/include"
+
+You can list libraries that osx is aware of (I think) using:
+pkg-config --list-all

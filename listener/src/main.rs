@@ -15,7 +15,7 @@ fn main() {
     println!("{new_uuid}")
 }
 
-pub fn c_uuid_to_u128(uuid: c_uuid::uuid_t) -> u128 {
+fn c_uuid_to_u128(uuid: c_uuid::uuid_t) -> u128 {
     // There's several open clippy issues about this
     #[allow(clippy::unnecessary_cast)]
     u128::from_ne_bytes(uuid.map(|b| b as u8))

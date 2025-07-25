@@ -1,16 +1,26 @@
-#![allow(warnings)]
-
-type uuid_t = [std::ffi::c_char; 16];
-
-unsafe extern "C" {
-    fn uuid_generate(out: *mut uuid_t);
+mod c_uuid {
+    use std::mem::MaybeUninit;
+    #[allow(non_camel_case_types)]
+    pub type uuid_t = [std::ffi::c_char; 16];
+    unsafe extern "C" {
+        pub unsafe fn uuid_generate(out: *mut MaybeUninit<uuid_t>);
+    }
 }
+use std::mem::MaybeUninit;
 
 fn main() {
-    unsafe {
-        let mut uuid : uuid_t = [0; 16];
-        uuid_generate(&raw mut uuid);
-        let uuid_numeric: u128 = std::mem::transmute::<uuid_t, u128>(uuid);
-        println!("{}", uuid_numeric);
-    }
+    let new_uuid: u128 = uuid_generate();
+    println!("{:?}", new_uuid)
+}
+
+pub fn c_uuid_to_u128(uuid: c_uuid::uuid_t) -> u128 {
+    u128::from_ne_bytes(uuid.map(|b| b as u8))
+}
+
+fn uuid_generate() -> u128 {
+    let mut result: MaybeUninit<c_uuid::uuid_t> = MaybeUninit::<c_uuid::uuid_t>::uninit();
+    c_uuid_to_u128(unsafe {
+        c_uuid::uuid_generate(&raw mut result);
+        result.assume_init()
+    })
 }

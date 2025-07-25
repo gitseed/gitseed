@@ -1,7 +1,7 @@
 mod c_uuid {
     use std::mem::MaybeUninit;
-    #[allow(non_camel_case_types)]
-    pub type uuid_t = [std::ffi::c_char; 16];
+    #[allow(non_camel_case_types)] // I want to use the same type name that the C header is using
+    pub type uuid_t = [std::ffi::c_uchar; 16];
     unsafe extern "C" {
         pub unsafe fn uuid_generate(out: *mut MaybeUninit<uuid_t>);
     }

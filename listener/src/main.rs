@@ -7,7 +7,7 @@ use crate::libpq::PGconn;
 
 fn main() {
     let test_connection_string: &'static str = "postgres:///gitseed";
-    let c: *const PGconn = pq::connect(test_connection_string);
+    let c: *const PGconn = pq::connect(test_connection_string).unwrap();
     let version = pq::server_version(c);
     print!("{version}")
 }

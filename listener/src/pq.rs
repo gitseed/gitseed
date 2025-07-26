@@ -3,15 +3,14 @@ use crate::libpq;
 #[derive(Debug)]
 pub struct ConnectionError {
     #[allow(dead_code)]
-    message: String
+    message: String,
 }
 
 fn get_connection_error(conn: *const libpq::PGconn) -> ConnectionError {
-    let raw_error_message:&std::ffi::CStr = unsafe {
-         std::ffi::CStr::from_ptr(libpq::PQerrorMessage(conn))
-    };
+    let raw_error_message: &std::ffi::CStr =
+        unsafe { std::ffi::CStr::from_ptr(libpq::PQerrorMessage(conn)) };
     ConnectionError {
-        message: String::from(raw_error_message.to_string_lossy())
+        message: String::from(raw_error_message.to_string_lossy()),
     }
 }
 
@@ -23,7 +22,7 @@ pub fn connect(conninfo: &str) -> Result<*const libpq::PGconn, ConnectionError> 
 
     match status_ok(conn) {
         true => Ok(conn),
-        false => Err(get_connection_error(conn))
+        false => Err(get_connection_error(conn)),
     }
 }
 

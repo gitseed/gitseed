@@ -1,8 +1,10 @@
 --liquibase formatted sql
 
 --changeset paul:inital
-CREATE TABLE presses (
+CREATE TABLE github_events (
   id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  date_pressed timestamp
+  ts timestamp,
+  github_org_name text,
+  event_type text,
+  payload jsonb
 );
-

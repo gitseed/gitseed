@@ -1,6 +1,0 @@
-Current proof of concept I want to do today:
-
-rust cli program
-inserts into postgres database
-that's literally it
-but see also the registry thoughts which is a bit harder

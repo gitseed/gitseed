@@ -1,14 +1,27 @@
-#![feature(extern_types)]
+use seedpq::QueryResult;
 
-mod libpq;
-mod pq;
+#[derive(QueryResult, Debug)]
+#[allow(dead_code)]
+struct User {
+    id: i32,
+    name: String,
+    hair_color: Option<String>,
+}
 
-use crate::libpq::PGconn;
+fn _main() -> Result<(), Box<dyn std::error::Error>> {
+    let (s, r, _, _) = seedpq::connect("postgres:///example");
+    s.exec("select * from users limit 5")?;
+    let users: Vec<User> = r.get()?.all()?;
+    dbg!(users);
+    s.exec("select version()")?;
+    let version: String = r.get()?.one()?;
+    dbg!(version);
+    Ok(())
+}
 
 fn main() {
-    let test_connection_string: &'static str = "postgres:///gitseed";
-    let c: *const PGconn = pq::connect(test_connection_string).unwrap();
-    let version = pq::server_version(c);
-    print!("{version}");
-    pq::exec(c, "SELECT datname FROM pg_database;");
+    match _main() {
+        Ok(()) => (),
+        Err(e) => println!("{}", e),
+    }
 }
